@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.lines{
+width:10px;
+height:40px;
+background:white;}
+</style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000; background-color:black; margin-top:50px; margin-left:50px;">
+</canvas>
+<script>
+
+var x1=100;
+var y1=100;
+var spdx=10;
+var spdy=5;
+var fps=40;
+var peddleH=70;
+var peddleY=10;
+var score=0;
+
+
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+setInterval(both,1000/fps);
+
+c.addEventListener("mousemove",function(event){
+peddleY=mouseCount(event).y - peddleH/2;
+});
+//play
+if(mouseCount(event).x >=100 && mouseCount(event).x <150 && mouseCount(event).y >=30 && mouseCount(event).y <60){
+c.addEventListener("click",function(event){
+console.log("ram");
+play();
+});
+};
+
+c.addEventListener("click",function(event){
+if(mouseCount(event).x >=200 && mouseCount(event).x <260 && mouseCount(event).y >=30 && mouseCount(event).y <60){
+console.log("jay");}
+});
+//level1
+c.addEventListener("click",function(event){
+//console.log("hello");
+if(mouseCount(event).x >300 && mouseCount(event).x <370 && mouseCount(event).y >=30 && mouseCount(event).y <60){
+spdx=10;
+spdy=5;}
+});
+//level2
+c.addEventListener("click",function(event){
+if(mouseCount(event).x >400 && mouseCount(event).x <470 && mouseCount(event).y >=30 && mouseCount(event).y <60){
+spdx=15;
+spdy=7;}
+});
+//level3
+c.addEventListener("click",function(event){
+if(mouseCount(event).x >500 && mouseCount(event).x <570 && mouseCount(event).y >=30 && mouseCount(event).y <60){
+spdx = 25;
+spdy = 9;}
+});
+
+function play(){
+x1=100;
+y1=100;};
+
+function both(){
+draw();
+move();
+};
+
+function draw(){
+ctx.fillStyle="black";
+ctx.fillRect(0,0,600,400);
+ctx.fillStyle = "white";
+ctx.fillRect(10,peddleY,10,peddleH+20);
+ctx.fillRect(590,y1-peddleH/2,10,peddleH);
+ctx.fillRect(x1,y1,20,20);
+ctx.fillText(score,100,50);
+ctx.fillRect(100,30,50,20);
+ctx.fillRect(200,30,55,20);
+ctx.fillRect(300,30,70,20);
+ctx.fillRect(400,30,70,20);
+ctx.fillRect(500,30,70,20);
+ctx.fillStyle="black";
+ctx.font="20px Arial";
+ctx.fillText("Play",105,40);
+ctx.fillText("Pause",200,40);
+ctx.fillText("Level1",305,40);
+ctx.fillText("Level2",405,40);
+ctx.fillText("Level3",505,40);
+ctx.fill();
+};
+
+
+function move()
+{
+x1 +=spdx;
+y1 +=spdy;
+if(x1>580)
+spdx=-spdx;
+if(x1<10){
+if(y1>=peddleY && y1<=peddleY+peddleH){
+spdx=-spdx;
+}
+else{
+reset();}
+}
+if(y1<0||y1>400){
+spdy=-spdy}
+}
+
+function mouseCount(event){
+var mouseX = event.clientX;
+var mouseY = event.clientY;
+return{
+x : mouseX ,
+y : mouseY}
+};
+
+function reset()
+{
+x1 = 100;
+y1 = 100;
+spdx =-spdx;
+spdy =-spdy;
+score++;
+};
+</script>
+</body>
+</html>
